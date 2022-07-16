@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 
-const btnClick = document.querySelector(".submit");
-
 const App = () => {
   const mcqs = [
     {
@@ -38,27 +36,27 @@ const App = () => {
     },
   ];
 
-  const [submit, setSubmit] = useState("");
+  const [currentmcq, setCurrentmcq] = useState(0);
   function generateMcq() {
     // btnClick.addEventListener("click", () => {
-    let newMcq = Math.floor(Math.random() * mcqs.length + 0);
+    let newMcq = Math.floor(Math.random() * mcqs.length);
     // });
 
-    setSubmit(newMcq);
+    setCurrentmcq(newMcq);
   }
   // declaring a variable index
   return (
     <div className="wrapper">
       <div className="quiz-container">
-        <h1 className="question1">{mcqs[0].question}</h1>
+        <h1 className="question1">{mcqs[currentmcq].question}</h1>
         <input type="radio" className="java" value="java" name="lang" />
-        <label for="java">{mcqs[0].option1}</label>
+        <label for="java">{mcqs[currentmcq].option1}</label>
         <br />
         <input type="radio" className="c" value="c" name="lang" />
-        <label for="c">{mcqs[0].option2}</label>
+        <label for="c">{mcqs[currentmcq].option2}</label>
         <br />
         <input type="radio" className="python" value="python" name="lang" />
-        <label for="python">{mcqs[0].option3}</label>
+        <label for="python">{mcqs[currentmcq].option3}</label>
         <br />
         <input
           type="radio"
@@ -66,7 +64,7 @@ const App = () => {
           value="javascript"
           name="lang"
         />
-        <label for="javascript">{mcqs[0].option4}</label>
+        <label for="javascript">{mcqs[currentmcq].option4}</label>
         <br />
         <button className="submit" onClick={generateMcq}>
           Submit
