@@ -62,8 +62,6 @@ const App = () => {
     setCurrentmcq(newMcq);
   }
 
-  const [option, setOptions] = useState("");
-  setOptions(option);
   // const [answer, setAnswer] = useState("");
   // const [clickanswer, setClickAnswer] = useState(false);
   // const checkAnswer = (option1, option2, option3, option4) => {
@@ -74,37 +72,12 @@ const App = () => {
     <div className="wrapper">
       <div className="quiz-container">
         <h1 className="question1">{mcqs[currentmcq].question}</h1>
-        mcqs.options.map((option)=>
-        {
-          <input
-            type="radio"
-            className="java"
-            value={mcqs.options}
-            name={mcqs.options}
-          >
-            <label for=""> {mcqs.options} </label>
-          </input>
-        }
-        );
-        {/*
-        <input type="radio" className="java" value="java" name="lang" />
-        <label for="option1">{mcqs[currentmcq].option1}</label>
-        <br />
-        <input type="radio" className="c" value="c" name="lang" />
-        <label for="option2">{mcqs[currentmcq].option2}</label>
-        <br />
-        <input type="radio" className="python" value="python" name="lang" />
-        <label for="option3">{mcqs[currentmcq].option3}</label>
-        <br />
-        <input
-        //   type="radio"
-        //   className="javascript"
-        //   value="javascript"
-        //   name="lang"
-        // /
-        // <label for="option4">{mcqs[currentmcq].option4}</label>
-        // <br />
-      */}
+        {mcqs[currentmcq].options.map((option) => {
+          <input type="radio" className="java" value={option} name={option}>
+            <label for=""> {option} </label>
+          </input>;
+        })}
+
         <button className="submit" onClick={generateMcq}>
           Submit
         </button>
