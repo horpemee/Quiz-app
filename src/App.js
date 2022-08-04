@@ -1,6 +1,47 @@
 import React, { useState } from "react";
 
+
+
+
+
+const ShowResult = (score) => {
+
+  return (
+    <div className="result-container">
+      <h1>Your Score is {score}</h1>
+    </div>
+  )
+}
+
+const Question = (mcqs, handleClick, setAnswer, count) => {
+ {
+  console.log(mcqs)
+  console.log(count)
+ }
+  <h1 className="question1">{mcqs[count].question}</h1>
+        
+  {mcqs[count].options.map((option) => {
+    return (
+      <div>
+        <input
+          type="radio"
+          className="java"
+          name="options"
+          onClick={(e) => setAnswer(option)}
+
+        />
+        {option}
+      </div>
+    );
+  })}
+
+  <button className="submit" onClick={handleClick(count)}>
+    Submit
+  </button>
+
+}
 const App = () => {
+
   const mcqs = [
     {
       id: 1,
@@ -40,50 +81,37 @@ const App = () => {
     },
   ];
 
-  function handleClick(e) {
-    if(answer  === mcqs[currentmcq].answer){
-      alert("Correct Answer");
+  function generateMcq() {
+    setCount(count + 1);
+  
+    if (count === mcqs.length) {
+      setCount(0);
+    }
+  }
+  function handleClick(count) {
+    if(answer  === mcqs[count].answer){
+      setScore(score + 1)
     }else{
       alert("Wrong Answer");
-      
     }
     generateMcq();
   }
-
-  const [currentmcq, setCurrentmcq] = useState(0);
-  const [answer, setAnswer] = useState("");
-
-  function generateMcq() {
-    let newMcq = Math.floor(Math.random() * mcqs.length);
-
-    setCurrentmcq(newMcq);
-  }
-
+const [score, setScore] = useState(0);
+const [answer, setAnswer] = useState("");
+const [count, setCount] = useState(1);
 
   return (
     <div className="wrapper">
       <div className="quiz-container">
-        <h1 className="question1">{mcqs[currentmcq].question}</h1>
-        {mcqs[currentmcq].options.map((option) => {
-          return (
-            <div>
-              <input
-                type="radio"
-                className="java"
-                name="options"
-                onClick={(e) => setAnswer(option)}
-
-              />
-              {option}
-            </div>
-          );
-        })}
-
-        <button className="submit" onClick={handleClick}>
-          Submit
-        </button>
+        <h1>Ope's Quiz App</h1>
+       {
+        count === 0 ? <ShowResult score={score} /> :  <Question mcqs={mcqs} handleClick={handleClick} setAnswer={setAnswer} count={count}/>
+       }
+       
       </div>
     </div>
   );
+
+      
 };
 export default App;
