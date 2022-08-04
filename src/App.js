@@ -2,9 +2,7 @@ import React, { useState } from "react";
 
 
 
-
-
-const ShowResult = (score) => {
+const ShowResult = ({score}) => {
 
   return (
     <div className="result-container">
@@ -13,32 +11,43 @@ const ShowResult = (score) => {
   )
 }
 
-const Question = (mcqs, handleClick, setAnswer, count) => {
+const Question = ({mcq, clicker, answer, scoreCount}) => {
  {
-  console.log(mcqs)
-  console.log(count)
+  console.log("mcqs==>", mcq.length)
+  console.log("count==>",scoreCount)
  }
-  <h1 className="question1">{mcqs[count].question}</h1>
+
+  return(
+
+    <div className="question-container">
+      <h1 className="question1">{mcq[scoreCount].question}</h1>
         
-  {mcqs[count].options.map((option) => {
-    return (
-      <div>
-        <input
-          type="radio"
-          className="java"
-          name="options"
-          onClick={(e) => setAnswer(option)}
+        {
+          mcq[scoreCount].options.map((option) => {
+          return (
+            <div>
+              <input
+                type="radio"
+                className="java"
+                name="options"
+                onClick={(e) => answer(option)}
+      
+              />
+              {option}
+            </div>
+          )
+        })}
+      
+        <button className="submit" onClick={clicker}>
+          Submit
+        </button>
+    
+      
+    
 
-        />
-        {option}
-      </div>
-    );
-  })}
-
-  <button className="submit" onClick={handleClick(count)}>
-    Submit
-  </button>
-
+    </div>
+  )
+    
 }
 const App = () => {
 
@@ -84,15 +93,15 @@ const App = () => {
   function generateMcq() {
     setCount(count + 1);
   
-    if (count === mcqs.length) {
+    if (count === mcqs.length - 1) {
       setCount(0);
     }
   }
-  function handleClick(count) {
+  function handleClick() {
     if(answer  === mcqs[count].answer){
       setScore(score + 1)
     }else{
-      alert("Wrong Answer");
+      console.log("wrong answer")
     }
     generateMcq();
   }
@@ -105,7 +114,8 @@ const [count, setCount] = useState(1);
       <div className="quiz-container">
         <h1>Ope's Quiz App</h1>
        {
-        count === 0 ? <ShowResult score={score} /> :  <Question mcqs={mcqs} handleClick={handleClick} setAnswer={setAnswer} count={count}/>
+        
+        count === 0 ? <ShowResult score={score} /> :  <Question mcq={mcqs} clicker={handleClick} answer={setAnswer} scoreCount={count}/>
        }
        
       </div>
