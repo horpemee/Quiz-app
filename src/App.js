@@ -40,15 +40,18 @@ const App = () => {
     },
   ];
 
-  function handleClick() {
-    if (mcqs[currentmcq].options === mcqs[currentmcq].answer) {
-      console.log("correct");
-    } else {
-      console.log("incorrect");
+  function handleClick(e) {
+    if(answer  === mcqs[currentmcq].answer){
+      alert("Correct Answer");
+    }else{
+      alert("Wrong Answer");
+      
     }
+    generateMcq();
   }
 
   const [currentmcq, setCurrentmcq] = useState(0);
+  const [answer, setAnswer] = useState("");
 
   function generateMcq() {
     let newMcq = Math.floor(Math.random() * mcqs.length);
@@ -56,11 +59,7 @@ const App = () => {
     setCurrentmcq(newMcq);
   }
 
-  // const [clickanswer, setClickAnswer] = useState(false);
-  // const checkAnswer = (option1, option2, option3, option4) => {
-  // setAnswer(answer);
-  //   setClickAnswer(true);
-  // };
+
   return (
     <div className="wrapper">
       <div className="quiz-container">
@@ -71,16 +70,16 @@ const App = () => {
               <input
                 type="radio"
                 className="java"
-                key={option}
-                name="option"
-                onClick={handleClick}
+                name="options"
+                onClick={(e) => setAnswer(option)}
+
               />
               {option}
             </div>
           );
         })}
 
-        <button className="submit" onClick={generateMcq}>
+        <button className="submit" onClick={handleClick}>
           Submit
         </button>
       </div>
